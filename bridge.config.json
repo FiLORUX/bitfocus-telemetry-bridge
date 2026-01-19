@@ -1,0 +1,64 @@
+{
+  "name": "telemetry-bridge",
+  "environment": "development",
+  "companion": {
+    "enabled": true,
+    "host": "localhost",
+    "port": 16622,
+    "device": {
+      "deviceId": "telemetry-bridge-001",
+      "productName": "Telemetry Bridge",
+      "keysPerRow": 8,
+      "keysTotal": 32
+    },
+    "autoReconnect": true,
+    "reconnectDelay": 5000,
+    "maxReconnectAttempts": 0,
+    "heartbeatInterval": 30000,
+    "connectionTimeout": 10000
+  },
+  "buttons": {
+    "enabled": false
+  },
+  "clientTransport": {
+    "enabled": true,
+    "port": 9000,
+    "host": "0.0.0.0",
+    "maxClients": 100,
+    "rateLimit": 100,
+    "rateLimitWindow": 1000,
+    "idleTimeout": 300000,
+    "requireAuth": false,
+    "authTokens": [],
+    "enableCompression": true,
+    "maxMessageSize": 1048576,
+    "heartbeatInterval": 30000
+  },
+  "logging": {
+    "level": "info",
+    "pretty": true
+  },
+  "metrics": {
+    "enabled": true,
+    "port": 9090,
+    "path": "/metrics"
+  },
+  "health": {
+    "enabled": true,
+    "port": 9091,
+    "checkInterval": 30000
+  },
+  "eventLog": {
+    "enabled": true,
+    "path": "data/events",
+    "maxFileSize": "100m",
+    "maxFiles": 7,
+    "compress": true
+  },
+  "stateSnapshot": {
+    "enabled": true,
+    "path": "data/snapshots",
+    "interval": 60000,
+    "maxSnapshots": 10
+  }
+}

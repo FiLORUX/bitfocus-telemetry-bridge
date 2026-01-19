@@ -1,0 +1,52 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+*.tsbuildinfo
+
+# Test coverage
+coverage/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Event logs (keep structure, ignore content)
+data/events/*.jsonl
+!data/events/.gitkeep
+
+# State snapshots
+data/snapshots/*.json
+!data/snapshots/.gitkeep
+
+# Metrics data
+data/metrics/
+
+# Temporary files
+tmp/
+temp/
