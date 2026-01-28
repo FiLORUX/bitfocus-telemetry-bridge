@@ -117,6 +117,16 @@ export const StateSnapshotConfigSchema = z.object({
 });
 
 // -----------------------------------------------------------------------------
+// GUI Config Schema
+// -----------------------------------------------------------------------------
+
+export const GuiConfigSchema = z.object({
+  enabled: z.boolean().default(true),
+  port: z.number().int().min(1).max(65535).default(9092),
+  host: z.string().default('0.0.0.0'),
+});
+
+// -----------------------------------------------------------------------------
 // Full Configuration Schema
 // -----------------------------------------------------------------------------
 
@@ -140,6 +150,9 @@ export const BridgeConfigSchema = z.object({
   // Persistence
   eventLog: EventLogConfigSchema.default({}),
   stateSnapshot: StateSnapshotConfigSchema.default({}),
+
+  // GUI
+  gui: GuiConfigSchema.default({}),
 });
 
 // -----------------------------------------------------------------------------
@@ -154,4 +167,5 @@ export type MetricsConfig = z.infer<typeof MetricsConfigSchema>;
 export type HealthConfig = z.infer<typeof HealthConfigSchema>;
 export type EventLogConfig = z.infer<typeof EventLogConfigSchema>;
 export type StateSnapshotConfig = z.infer<typeof StateSnapshotConfigSchema>;
+export type GuiConfig = z.infer<typeof GuiConfigSchema>;
 export type BridgeConfig = z.infer<typeof BridgeConfigSchema>;

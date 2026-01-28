@@ -164,12 +164,15 @@ async function main(): Promise<void> {
 
     // Print startup information
     const config = bridge.getConfig();
+    const guiLine = config.gui.enabled
+      ? `║  GUI:         http://localhost:${config.gui.port.toString().padEnd(26)}  ║\n`
+      : '';
     console.log(`
 ╔══════════════════════════════════════════════════════════════╗
 ║             Bitfocus Telemetry Bridge v0.1.0                 ║
 ╠══════════════════════════════════════════════════════════════╣
 ║  Client API:   ws://${config.clientTransport.host}:${config.clientTransport.port.toString().padEnd(25)}  ║
-║  Metrics:      http://localhost:${config.metrics.port.toString().padEnd(26)}  ║
+${guiLine}║  Metrics:      http://localhost:${config.metrics.port.toString().padEnd(26)}  ║
 ║  Health:       http://localhost:${config.health.port.toString().padEnd(26)}  ║
 ║  Companion:    ${config.companion.host}:${config.companion.port.toString().padEnd(28)}  ║
 ╚══════════════════════════════════════════════════════════════╝

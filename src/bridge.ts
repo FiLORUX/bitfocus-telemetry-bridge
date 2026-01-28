@@ -27,6 +27,7 @@ import {
   getContentType,
   updateAdapterState,
 } from './observability/metrics.js';
+import { GuiServer, createGuiServerChecker } from './gui/server.js';
 import { createServer, type Server } from 'http';
 
 // -----------------------------------------------------------------------------
@@ -51,6 +52,7 @@ export class TelemetryBridge {
   private healthManager: HealthManager;
   private metricsServer: Server | null = null;
   private healthServer: Server | null = null;
+  private guiServer: GuiServer | null = null;
 
   // State
   private running = false;
@@ -93,6 +95,9 @@ export class TelemetryBridge {
       // Initialise observability
       await this.initObservability();
 
+      // Initialise GUI
+      await this.initGui();
+
       this.running = true;
       this.logger.info('Telemetry Bridge started successfully');
     } catch (error) {
@@ -110,6 +115,12 @@ export class TelemetryBridge {
 
     // Stop health checks
     this.healthManager.stopBackgroundChecks();
+
+    // Stop GUI server
+    if (this.guiServer) {
+      await this.guiServer.stop();
+      this.guiServer = null;
+    }
 
     // Stop observability servers
     await this.stopObservabilityServers();
@@ -310,6 +321,34 @@ export class TelemetryBridge {
     }
 
     this.logger.debug('Observability initialised');
+  }
+
+  private async initGui(): Promise<void> {
+    if (!this.config.gui.enabled) {
+      return;
+    }
+
+    this.logger.debug('Initialising GUI server...');
+
+    this.guiServer = new GuiServer({
+      config: this.config.gui,
+      getConfig: () => this.config,
+      getStateStore: () => this.stateStore,
+      getHealthManager: () => this.healthManager,
+    });
+
+    // Register health checker
+    this.healthManager.registerChecker(
+      'gui_server',
+      createGuiServerChecker(() => this.guiServer)
+    );
+
+    await this.guiServer.start();
+
+    this.logger.info(
+      { host: this.config.gui.host, port: this.config.gui.port },
+      'GUI server started'
+    );
   }
 
   private async stopObservabilityServers(): Promise<void> {

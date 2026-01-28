@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telemetry Bridge</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Telemetry Bridge</h1>
+    <div id="connection-status" class="status disconnected">
+      <span class="indicator"></span>
+      <span class="text">Disconnected</span>
+    </div>
+  </header>
+
+  <nav>
+    <button class="tab active" data-tab="status">Status</button>
+    <button class="tab" data-tab="state">State</button>
+    <button class="tab" data-tab="config">Config</button>
+    <button class="tab" data-tab="log">Log</button>
+    <button class="tab" data-tab="export">Export</button>
+  </nav>
+
+  <main>
+    <!-- Status Tab -->
+    <section id="tab-status" class="tab-content active">
+      <h2>System Status</h2>
+      <div id="health-grid" class="health-grid">
+        <div class="health-card" data-component="companion">
+          <h3>Companion</h3>
+          <div class="health-status unknown">
+            <span class="indicator"></span>
+            <span class="text">Unknown</span>
+          </div>
+          <div class="health-details"></div>
+        </div>
+        <div class="health-card" data-component="client_transport">
+          <h3>Client Transport</h3>
+          <div class="health-status unknown">
+            <span class="indicator"></span>
+            <span class="text">Unknown</span>
+          </div>
+          <div class="health-details"></div>
+        </div>
+        <div class="health-card" data-component="state_store">
+          <h3>State Store</h3>
+          <div class="health-status unknown">
+            <span class="indicator"></span>
+            <span class="text">Unknown</span>
+          </div>
+          <div class="health-details"></div>
+        </div>
+        <div class="health-card" data-component="router">
+          <h3>Router</h3>
+          <div class="health-status unknown">
+            <span class="indicator"></span>
+            <span class="text">Unknown</span>
+          </div>
+          <div class="health-details"></div>
+        </div>
+      </div>
+
+      <h2>Bridge Info</h2>
+      <div id="bridge-info" class="info-panel">
+        <div class="info-row">
+          <span class="label">Name:</span>
+          <span class="value" id="info-name">-</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Environment:</span>
+          <span class="value" id="info-environment">-</span>
+        </div>
+        <div class="info-row">
+          <span class="label">WebSocket Port:</span>
+          <span class="value" id="info-ws-port">-</span>
+        </div>
+        <div class="info-row">
+          <span class="label">State Entries:</span>
+          <span class="value" id="info-state-entries">-</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Uptime:</span>
+          <span class="value" id="info-uptime">-</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- State Tab -->
+    <section id="tab-state" class="tab-content">
+      <h2>State Browser</h2>
+      <div class="toolbar">
+        <input type="text" id="state-filter" placeholder="Filter by path (e.g. companion.*)">
+        <button id="state-refresh">Refresh</button>
+        <span id="state-count">0 entries</span>
+      </div>
+      <div class="table-container">
+        <table id="state-table">
+          <thead>
+            <tr>
+              <th>Path</th>
+              <th>Value</th>
+              <th>Owner</th>
+              <th>Version</th>
+              <th>Updated</th>
+            </tr>
+          </thead>
+          <tbody id="state-tbody">
+            <tr><td colspan="5" class="empty">No state loaded</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Config Tab -->
+    <section id="tab-config" class="tab-content">
+      <h2>Configuration</h2>
+      <div id="config-container">
+        <pre id="config-json">Loading...</pre>
+      </div>
+    </section>
+
+    <!-- Log Tab -->
+    <section id="tab-log" class="tab-content">
+      <h2>Event Log</h2>
+      <div class="toolbar">
+        <button id="log-clear">Clear</button>
+        <label>
+          <input type="checkbox" id="log-autoscroll" checked> Auto-scroll
+        </label>
+        <span id="log-count">0 events</span>
+      </div>
+      <div id="log-container" class="log-container">
+        <div class="log-entry info">Waiting for events...</div>
+      </div>
+    </section>
+
+    <!-- Export Tab -->
+    <section id="tab-export" class="tab-content">
+      <h2>Export Data</h2>
+      <div class="export-options">
+        <div class="export-card">
+          <h3>State Snapshot</h3>
+          <p>Download the current state of all entries as JSON.</p>
+          <button id="export-snapshot">Download Snapshot</button>
+        </div>
+        <div class="export-card">
+          <h3>Configuration</h3>
+          <p>Download the current bridge configuration.</p>
+          <button id="export-config">Download Config</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Bitfocus Telemetry Bridge v0.1.0</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
