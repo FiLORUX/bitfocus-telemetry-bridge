@@ -68,7 +68,7 @@ It maintains a canonical state store, publishes deltas, provides snapshot-on-con
 
 ```bash
 # Clone the repository
-git clone https://github.com/thast/bitfocus-telemetry-bridge.git
+git clone https://github.com/FiLORUX/bitfocus-telemetry-bridge.git
 cd bitfocus-telemetry-bridge
 
 # Install dependencies
