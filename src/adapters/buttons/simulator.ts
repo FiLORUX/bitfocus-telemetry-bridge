@@ -133,7 +133,7 @@ export class ButtonsSimulator {
     this.config = { ...DEFAULT_SIMULATOR_CONFIG, ...config };
     this.transport = new SimulatedButtonsTransport();
 
-    // Initialize devices (but don't emit yet - wait for connection)
+    // Initialise devices (but don't emit yet - wait for connection)
     if (this.config.initialDevices) {
       for (const deviceConfig of this.config.initialDevices) {
         this.addDeviceInternal(deviceConfig);
@@ -182,7 +182,7 @@ export class ButtonsSimulator {
 
     this.devices.set(device.id, device);
 
-    // Initialize key states
+    // Initialise key states
     const totalKeys = config.columns * config.rows;
     for (let i = 0; i < totalKeys; i++) {
       const row = Math.floor(i / config.columns);

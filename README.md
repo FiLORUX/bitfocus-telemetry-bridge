@@ -124,8 +124,6 @@ Create a `bridge.config.json` file:
 }
 ```
 
-See the [Configuration Guide](docs/guides/configuration.md) for all options.
-
 ## Companion Capabilities
 
 | Feature | Supported | Notes |
@@ -382,6 +380,10 @@ npm run lint
 4. Ensure all tests pass
 5. Submit a pull request
 
-## License
+## Licence
 
 MIT
+
+---
+
+David Thåst · [thåst.se](https://xn--thst-roa.se) · [FiLORUX](https://github.com/FiLORUX)
